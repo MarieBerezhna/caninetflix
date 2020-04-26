@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "name": "CanINetflix",
+  "version": "1.0",
+
+  "description": "Share Netflix account and see if it's available",
+  "homepage_url": "https://github.com/MarieBerezhna/caniusenetflix", 
+  "icons": {
+      "32": "icons/global.png"
+  },
+
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "storage"
+  ],
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/main.js"]
+    }
+  ],
+  "page_action": {
+    "default_icon": {
+      "32": "icons/global.png"
+    },
+    "default_title": "Can I Netflix",
+    "default_popup": "popup/index.html"
+  }
+}
