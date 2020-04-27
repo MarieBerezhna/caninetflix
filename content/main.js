@@ -5,12 +5,12 @@ const enableExtension = () => {
 enableExtension();
 
 let setBusy = () => {
-  chrome.runtime.sendMessage({ "newIconPath" : "icons/red128.png" });
-  // document.getElementById("status")[0].innerText = "busy"; //change popup message
+  chrome.runtime.sendMessage({ message: "changeIcon", "newIconPath" : "icons/red128.png" });
+ //document.getElementById("status")[0].innerText = "busy"; //change popup message
 };
 
 let setFree = () => {
-  chrome.runtime.sendMessage({ "newIconPath" : "icons/green128.png" });
+  chrome.runtime.sendMessage({ message: "changeIcon", "newIconPath" : "icons/green128.png" });
   // document.getElementById("status")[0].innerText = "free";
 };
 
@@ -21,6 +21,8 @@ let checkTabs = (tabs) => {
       if (url.indexOf("netflix") !== -1) {
         setBusy();
         console.log("active");
+      } else {
+        setFree();
       }
     }
   }
