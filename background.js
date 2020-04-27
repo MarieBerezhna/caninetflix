@@ -13,3 +13,10 @@ chrome.runtime.onMessage.addListener(
     sendResponse({message: msg});
     return true;
   });
+
+  chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        chrome.browserAction.setIcon({
+            path: request.newIconPath
+        });
+    });
