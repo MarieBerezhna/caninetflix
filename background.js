@@ -6,6 +6,9 @@ chrome.runtime.onMessage.addListener(
 
     switch (request.message) {
 
+      case "start":
+        console.log("start");
+      break;
       case "checkTabs":
         chrome.tabs.query({"audible": true, "active": true}, function (tabs) {
             console.log(tabs);
