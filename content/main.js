@@ -2,8 +2,6 @@ const enableExtension = () => {
     chrome.runtime.sendMessage({ command: 'enable' });  
   };
 
-enableExtension();
-
 let setBusy = () => {
   chrome.runtime.sendMessage({ message: "changeIcon", "newIconPath" : "icons/red128.png" });
  //document.getElementById("status")[0].innerText = "busy"; //change popup message
@@ -36,4 +34,6 @@ let requestTabs = () => {
   });
 };
 
+
+enableExtension();
 requestTabs();
