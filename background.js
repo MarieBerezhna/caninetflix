@@ -28,12 +28,3 @@ chrome.runtime.onMessage.addListener(
     }
     return true;
   });
-
-  chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-      if (request.message === "changeIcon") {
-        chrome.browserAction.setIcon({
-          path: request.newIconPath
-      });
-      }
-    });
