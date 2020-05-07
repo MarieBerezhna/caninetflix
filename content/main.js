@@ -17,8 +17,8 @@ let setFree = () => {
 let checkTabs = (tabs) => {
   if (tabs.length) {
     for (var i = 0; i < tabs.length; i++) {
-      let url = tabs[i].url;
-      if (url.indexOf("netflix") !== -1) {
+      let title = tabs[i].title;
+      if (title === "Netflix") {
         setBusy();
         console.log("active");
       } else {

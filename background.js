@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener(
   (request, sender, sendResponse) => {
 
     if (request.message === "checkTabs")
-    chrome.tabs.query({"audible": true}, function (tabs) {
+    chrome.tabs.query({"audible": true, "active": true}, function (tabs) {
       console.log(tabs);
       msg = tabs;
       sendResponse({message: msg});
