@@ -1,6 +1,3 @@
-
-let msg; 
-
 chrome.runtime.onMessage.addListener(
   (request, sender, sendResponse) => {
 
@@ -12,8 +9,7 @@ chrome.runtime.onMessage.addListener(
       case "checkTabs":
         chrome.tabs.query({"audible": true, "active": true}, function (tabs) {
             console.log(tabs);
-            msg = tabs;
-            sendResponse({message: msg});
+            sendResponse({message: tabs});
           });
       break;
       case "changeIcon":
