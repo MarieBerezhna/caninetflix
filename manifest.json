@@ -15,7 +15,8 @@
     "storage",
     "https://*/*", 
     "http://*/*", 
-    "<all_urls>" 
+    "<all_urls>",
+    "declarativeContent"
   ],
 
   "background": {
@@ -26,7 +27,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content/main.js"]
+      "js": ["popup/popup.js"]
     }
   ],
   "browser_action": {

@@ -1,39 +1,38 @@
-$(document).ready(function () {
-    $("#status").text("busy");
-    console.log("popup, " + Date.now());
-});
+let activeNetflix;
+
 const enableExtension = () => {
     chrome.runtime.sendMessage({ 
         command: 'enable', 
         message: "start" 
       });  
   };
+const updateStatus = () => {
+    $("#status").text(activeNetflix? "busy": "free");
+    chrome.runtime.sendMessage({ 
+        message: "updateStatus", 
+        "newIconPath" : activeNetflix? "icons/red128.png" : "icons/green128.png",
+        "users" : activeNetflix? 1 : 0
+    });
 
-let checkTabs = (tabs) => {
-  console.log(tabs);
-  if (tabs.length) {
-    for (var i = 0; i < tabs.length; i++) {
-      let title = tabs[i].title;
-      chrome.runtime.sendMessage({ 
-        message: "changeIcon", 
-        "newIconPath" : title === "Netflix"? "icons/red128.png" : "icons/green128.png" 
-      });
-    }
-  }
 };
-
-let requestTabs = () => {
-  console.log("here");
+let requestStatus = () => {
   chrome.runtime.sendMessage({
     message: "checkTabs"
   }, (response) => {
-    console.log(response.message);
-    let tabs = response.message;
-    checkTabs(tabs);
+    activeNetflix = response.message; //true : false
+    updateStatus();
   });
 };
-
-
 enableExtension();
-requestTabs();
+requestStatus();
+
+chrome.runtime.onStartup.addListener(() => {
+    requestStatus();
+  });
+chrome.tabs.onActiveChanged.addListener(() => {
+    requestStatus();
+});
+chrome.tabs.onUpdated.addListener(() => {
+    requestStatus();
+});
 

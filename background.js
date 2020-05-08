@@ -7,16 +7,24 @@ chrome.runtime.onMessage.addListener(
         console.log("start");
       break;
       case "checkTabs":
-        chrome.tabs.query({"audible": true, "active": true}, function (tabs) {
+      let users = [];
+      //get data from database add to users
+        chrome.tabs.query({"audible": true, "active": true, "title": "Netflix"}, function (tabs) {
             console.log(tabs);
-            sendResponse({message: tabs});
+            
+            sendResponse({
+              message: tabs.length? true : false
+              
+            });
           });
       break;
-      case "changeIcon":
+      case "updateStatus":
         chrome.browserAction.setIcon({
           path: request.newIconPath
       });
       console.log("icon");
+
+      // send new data to server (local user active/inactive)
       break;
       default:
         console.log("No request message");
