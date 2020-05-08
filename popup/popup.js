@@ -27,7 +27,6 @@ let requestTabs = () => {
   chrome.runtime.sendMessage({
     message: "checkTabs"
   }, (response) => {
-    debugger;
     console.log(response.message);
     let tabs = response.message;
     checkTabs(tabs);
