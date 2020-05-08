@@ -1,5 +1,6 @@
 let activeNetflix;
 
+
 const enableExtension = () => {
     chrome.runtime.sendMessage({ 
         command: 'enable', 
@@ -7,7 +8,8 @@ const enableExtension = () => {
       });  
   };
 const updateStatus = () => {
-    $("#status").text(activeNetflix? "busy": "free");
+    let status = activeNetflix? "busy": "free";
+    $("#status").attr('status', status).text(status);
     chrome.runtime.sendMessage({ 
         message: "updateStatus", 
         "newIconPath" : activeNetflix? "icons/red128.png" : "icons/green128.png",
@@ -20,6 +22,7 @@ let requestStatus = () => {
     message: "checkTabs"
   }, (response) => {
     activeNetflix = response.message; //true : false
+    console.log(activeNetflix);
     updateStatus();
   });
 };
@@ -29,10 +32,6 @@ requestStatus();
 chrome.runtime.onStartup.addListener(() => {
     requestStatus();
   });
-chrome.tabs.onActiveChanged.addListener(() => {
-    requestStatus();
-});
 chrome.tabs.onUpdated.addListener(() => {
     requestStatus();
 });
-
